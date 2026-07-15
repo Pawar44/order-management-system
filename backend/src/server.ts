@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import orderRoutes from './routes/order.routes';
+import archiveRoutes from './routes/archive.routes';
+import analyticsRoutes from './routes/analytics.routes';
 import { errorHandler } from './middleware/errorHandler';
 import { initSocket } from './sockets/socket';
 
@@ -22,6 +24,8 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/orders', orderRoutes);
+app.use('/archive-old-orders', archiveRoutes);
+app.use('/analytics', analyticsRoutes);
 
 // Error handler must be last
 app.use(errorHandler);

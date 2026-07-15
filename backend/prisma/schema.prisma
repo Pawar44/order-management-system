@@ -37,6 +37,22 @@ model OrderItem {
   price    Float
 }
 
+// Archive table — same shape as Order, but stores items as JSON
+// since archived orders are read-only history, no need for a live relation.
+model OrderArchive {
+  id          String      @id @default(uuid())
+  originalId  String      @unique
+  storeId     String
+  items       Json
+  totalAmount Float
+  status      OrderStatus
+  createdAt   DateTime
+  archivedAt  DateTime    @default(now())
+
+  @@index([storeId])
+  @@index([createdAt])
+}
+
 enum OrderStatus {
   PLACED
   PREPARING
