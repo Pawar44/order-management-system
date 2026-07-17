@@ -2,7 +2,7 @@
 
 A multi-store order management system with real-time updates and sales analytics, built for a full-stack developer take-home assessment.
 
-**Live demo:** _(add your Vercel link here after deploying)_
+**Live demo:** (https://order-management-system-azure-two.vercel.app)
 
 ## Tech Stack
 
