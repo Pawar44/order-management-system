@@ -48,33 +48,43 @@ export default function CreateOrderPage() {
   }
 
   return (
-    <main className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Create Order</h1>
+    <main className="max-w-2xl mx-auto px-8 py-12 animate-fade-in-up">
+      <p className="text-sm text-orange-400 font-semibold mb-2 tracking-widest uppercase">
+        New Order
+      </p>
+      <h1 className="text-3xl font-bold mb-8">Punch In an Order</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium mb-1">Store ID</label>
+          <label className="block text-sm font-medium mb-2 text-orange-100/70">
+            Store ID
+          </label>
           <input
             type="text"
             required
             value={storeId}
             onChange={(e) => setStoreId(e.target.value)}
             placeholder="Paste store UUID"
-            className="w-full border rounded px-3 py-2"
+            className="w-full bg-white/5 border border-orange-500/20 rounded-lg px-4 py-3 focus:border-orange-500 focus:outline-none transition-colors placeholder:text-orange-100/30"
           />
         </div>
 
         <div className="space-y-3">
-          <label className="block text-sm font-medium">Items</label>
+          <label className="block text-sm font-medium text-orange-100/70">
+            Items
+          </label>
           {items.map((item, index) => (
-            <div key={index} className="flex gap-2 items-center">
+            <div
+              key={index}
+              className="flex gap-2 items-center bg-white/5 border border-orange-500/20 rounded-lg p-3"
+            >
               <input
                 type="text"
                 required
                 placeholder="Item ID"
                 value={item.itemId}
                 onChange={(e) => updateItem(index, 'itemId', e.target.value)}
-                className="border rounded px-2 py-1 w-1/5"
+                className="bg-transparent border border-orange-500/20 rounded px-2 py-1.5 w-1/5 focus:border-orange-500 focus:outline-none text-sm"
               />
               <input
                 type="text"
@@ -82,7 +92,7 @@ export default function CreateOrderPage() {
                 placeholder="Item Name"
                 value={item.itemName}
                 onChange={(e) => updateItem(index, 'itemName', e.target.value)}
-                className="border rounded px-2 py-1 w-2/5"
+                className="bg-transparent border border-orange-500/20 rounded px-2 py-1.5 w-2/5 focus:border-orange-500 focus:outline-none text-sm"
               />
               <input
                 type="number"
@@ -91,7 +101,7 @@ export default function CreateOrderPage() {
                 placeholder="Qty"
                 value={item.qty}
                 onChange={(e) => updateItem(index, 'qty', e.target.value)}
-                className="border rounded px-2 py-1 w-1/5"
+                className="bg-transparent border border-orange-500/20 rounded px-2 py-1.5 w-1/5 focus:border-orange-500 focus:outline-none text-sm"
               />
               <input
                 type="number"
@@ -101,13 +111,13 @@ export default function CreateOrderPage() {
                 placeholder="Price"
                 value={item.price}
                 onChange={(e) => updateItem(index, 'price', e.target.value)}
-                className="border rounded px-2 py-1 w-1/5"
+                className="bg-transparent border border-orange-500/20 rounded px-2 py-1.5 w-1/5 focus:border-orange-500 focus:outline-none text-sm"
               />
               {items.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeItemRow(index)}
-                  className="text-red-600 text-sm"
+                  className="text-red-400 hover:text-red-300 text-sm px-1"
                 >
                   ✕
                 </button>
@@ -117,7 +127,7 @@ export default function CreateOrderPage() {
           <button
             type="button"
             onClick={addItemRow}
-            className="text-blue-600 text-sm"
+            className="text-orange-400 hover:text-orange-300 text-sm font-medium"
           >
             + Add another item
           </button>
@@ -126,19 +136,19 @@ export default function CreateOrderPage() {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full font-medium shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100"
         >
-          {mutation.isPending ? 'Placing order...' : 'Place Order'}
+          {mutation.isPending ? 'Sending to kitchen...' : 'Place Order'}
         </button>
 
         {mutation.isSuccess && (
-          <p className="text-green-600">
-            Order created! Total: ₹{mutation.data.totalAmount}
+          <p className="text-green-400 animate-bounce-in">
+            🎉 Order's in! Total: ₹{mutation.data.totalAmount}
           </p>
         )}
         {mutation.isError && (
-          <p className="text-red-600">
-            Failed to create order. Check the Store ID and try again.
+          <p className="text-red-400">
+            Couldn't place that order — double check the Store ID.
           </p>
         )}
       </form>
